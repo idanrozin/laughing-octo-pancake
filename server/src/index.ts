@@ -9,7 +9,12 @@ import exampleRoutes from './routes/example';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+
+if (!process.env.PORT) {
+  throw new Error('PORT is not defined in environment variables');
+}
+
+const port = parseInt(process.env.PORT);
 
 // Connect to MongoDB
 connectDB();
