@@ -2,14 +2,21 @@ import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import { Request, Response } from 'express';
+import connectDB from './config/database';
+import exampleRoutes from './routes/example';
+
 // Load environment variables
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Connect to MongoDB
+connectDB();
+
 // API routes
 app.use('/api', express.json());
+app.use('/api/examples', exampleRoutes);
 
 app.get('/api/hello', (req: Request, res: Response<{ message: string }>) => {
   res.json({ message: 'Hello World!' });
